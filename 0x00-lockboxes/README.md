@@ -19,3 +19,20 @@ Write a method that determines if all the boxes can be opened.
 All my proposed solutions are available in the `0x00-lockboxes` file as distinct methods. My best solution is at the top and retains the name `canUnlockAll(boxes)`. Below is a description of them:
 
 ### 8 december 2020 - Brute-Forcing It
+
+```
+def canUnlockAll(boxes):
+
+    numBoxes = len(boxes)
+    unlockedBoxes = [0]
+    numUnlocked = 1
+
+    for box in unlockedBoxes:
+        for key in boxes[box]:
+            if key < numBoxes and key not in unlockedBoxes:
+                unlockedBoxes.append(key)
+                numUnlocked += 1
+    return numBoxes == numUnlocked
+```
+
+In this solution, we loop through a queue of known unlocked boxes. For each unlocked box, we check each key. If a key opens a locked box, the key is added to the queue of known unlocked boxes. When the queue is done, we check if the number of unlocked boxes equaled the amount of total boxes.
