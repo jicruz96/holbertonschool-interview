@@ -20,7 +20,7 @@ All my proposed solutions are available in the `0x00-lockboxes` file as distinct
 
 ### 8 december 2020 - Brute-Forcing It
 
-```
+```python
 def canUnlockAll(boxes):
 
     numBoxes = len(boxes)
