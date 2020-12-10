@@ -18,7 +18,7 @@ Write a method that determines if all the boxes can be opened.
 
 All my proposed solutions are available in the `0x00-lockboxes` file as distinct methods. My best solution is at the top and retains the name `canUnlockAll(boxes)`. Below is a description of them:
 
-### 8 december 2020 - Brute-Forcing It
+### 8 december 2020
 
 ```python
 def canUnlockAll(boxes):
