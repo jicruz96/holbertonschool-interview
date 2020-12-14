@@ -14,7 +14,7 @@ You are given an integer `number` and the `head` of a sorted singly linked list 
 
 ### **14 december 2020** - there's only one real way to do this, so here it is
 
-```
+```c
 listint_t *insert_node(listint_t **head, int number)
 {
 	listint_t *node, *tmp, *prev = NULL;
