@@ -35,7 +35,10 @@ heap_t *heap_insert(heap_t **head, int value)
 		tmp->left = node;
 	}
 
+	/* heapify the tree! */
 	adjust_heap(node);
+
+	/* If the node, after heapification, is the head, point head to it */
 	if (node->parent == NULL)
 		*head = node;
 	return (node);
