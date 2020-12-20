@@ -24,7 +24,7 @@ heap_t *heap_insert(heap_t **head, int value)
 	height = binary_tree_height(*head);
 
 	/* Use helper function to insert node */
-	node = insert_heap_node(*head, value, height - 1, 1);
+	node = complete_tree_insert(*head, value, height - 1, 1);
 
 	/* If node was not inserted, then node goes as left as possible */
 	if (!node)
@@ -36,98 +36,15 @@ heap_t *heap_insert(heap_t **head, int value)
 	}
 
 	/* heapify the tree! */
-	adjust_heap(node);
+	adjust_node(node);
 
-	/* If the node, after heapification, is the head, point head to it */
+	/* If node, after heapification, is the head, set head equal to it */
 	if (node->parent == NULL)
 		*head = node;
+
 	return (node);
 }
 
-/**
- * adjust_heap - sorts heap
- * @node: node that needs sorting within heap
- **/
-void adjust_heap(heap_t *node)
-{
-	heap_t *tmp;
-
-	while (node->parent && node->n > node->parent->n)
-	{
-		if (node->left)
-			node->left->parent = node->parent;
-		if (node->right)
-			node->right->parent = node->parent;
-
-		if (node->parent->parent)
-		{
-			if (node->parent->parent->left == node->parent)
-				node->parent->parent->left = node;
-			else
-				node->parent->parent->right = node;
-		}
-
-		tmp = node->parent->left, node->parent->left = node->left;
-		if (tmp != node)
-		{
-			node->left = tmp;
-			if (tmp)
-				tmp->parent = node;
-		}
-		else
-			node->left = node->parent;
-
-		tmp = node->parent->right, node->parent->right = node->right;
-		if (tmp != node)
-		{
-			node->right = tmp;
-			if (tmp)
-				tmp->parent = node;
-		}
-		else
-			node->right = node->parent;
-
-		tmp = node->parent->parent, node->parent->parent = node;
-		node->parent = tmp;
-	}
-}
-
-/**
- * insert_heap_node - helper function for heap_insert
- * @head: head of tree
- * @val: value to insert to node
- * @target: target height to verify insertion
- * @current: current height (recursion flag for comparison with target)
- * Return: pointer to new inserted node
- **/
-heap_t *insert_heap_node(heap_t *head, int val, int target, int current)
-{
-	heap_t *node;
-
-	if (current < target)
-	{
-		node = insert_heap_node(head->left, val, target, current + 1);
-		if (!node)
-			node = insert_heap_node(head->right, val, target, current + 1);
-		return (node);
-	}
-
-	if (current == target)
-	{
-		if (head->left == NULL)
-		{
-			head->left = binary_tree_node(head, val);
-			return (head->left);
-		}
-		if (head->right == NULL)
-		{
-			head->right = binary_tree_node(head, val);
-			return (head->right);
-		}
-	}
-
-	return (NULL);
-}
 
 /**
  * binary_tree_height - returns height of a binary tree
@@ -138,14 +55,113 @@ int binary_tree_height(binary_tree_t *head)
 {
 	int left_height, right_height;
 
+	/* No tree? no height */
 	if (head == NULL)
 		return (0);
 
+	/* Head has no children? Return height of 1 */
 	if (head->right == NULL && head->left == NULL)
 		return (1);
 
+	/* get height of left and right sub-trees */
 	left_height = binary_tree_height(head->left);
 	right_height = binary_tree_height(head->right);
 
+	/* return height of taller sub-tree plus 1 (to represent current node) */
 	return (max(left_height, right_height) + 1);
+}
+
+/**
+ * complete_tree_insert - helper function for heap_insert
+ * @head: head of tree
+ * @val: value to insert to node
+ * @target: target height to verify insertion
+ * @current: current height (recursion flag for comparison with target)
+ * Return: pointer to new inserted node
+ **/
+heap_t *complete_tree_insert(heap_t *head, int val, int target, int current)
+{
+	heap_t *node;
+
+
+	/* While we still haven't hit the target level, keep recursing */
+	if (current < target)
+	{
+		/* Try to insert to the left */
+		node = complete_tree_insert(head->left, val, target, current + 1);
+
+		/* If no space in left side, try the right side */
+		if (!node)
+			node = complete_tree_insert(head->right, val, target, current + 1);
+
+		/* Return node (or NULL if insertion failed) */
+		return (node);
+	}
+
+	/* When you've hit the target level... */
+	if (current == target)
+	{
+		/* If node can be inserted to the left, insert and return */
+		if (head->left == NULL)
+		{
+			head->left = binary_tree_node(head, val);
+			return (head->left);
+		}
+		/* else, try the right side */
+		if (head->right == NULL)
+		{
+			head->right = binary_tree_node(head, val);
+			return (head->right);
+		}
+	}
+	/* if all else fails, return NULL */
+	return (NULL);
+}
+
+/**
+ * adjust_node - sorts heap
+ * @node: node that needs sorting within heap
+ **/
+void adjust_node(heap_t *node)
+{
+	heap_t *tmp;
+
+	for (; node->parent && node->n > node->parent->n; node->parent = tmp)
+	{
+		/* Make children point to node's parent */
+		if (node->left)
+			node->left->parent = node->parent;
+		if (node->right)
+			node->right->parent = node->parent;
+		/* Make node's parent point to node */
+		if (node->parent->parent)
+		{
+			if (node->parent->parent->left == node->parent)
+				node->parent->parent->left = node;
+			else
+				node->parent->parent->right = node;
+		}
+		/* Swap left children */
+		tmp = node->parent->left, node->parent->left = node->left;
+		if (tmp != node)
+		{
+			node->left = tmp;
+			if (tmp)
+				tmp->parent = node;
+		}
+		else
+			node->left = node->parent;
+		/* Swap right children */
+		tmp = node->parent->right, node->parent->right = node->right;
+		if (tmp != node)
+		{
+			node->right = tmp;
+			if (tmp)
+				tmp->parent = node;
+		}
+		else
+			node->right = node->parent;
+		/* Swap parents */
+		tmp = node->parent->parent, node->parent->parent = node;
+	}
 }
