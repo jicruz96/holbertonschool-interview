@@ -19,14 +19,3 @@ In essence, it's a tree-like data structure where values are sorted from greates
 
 Details in the [wiki page](https://en.wikipedia.org/wiki/Heap_(data_structure)).
 <br>
-
-## My Proposed Solution 💡
-
-### **14 december 2020** - there's only one real way to do this, so here it is
-
-```c
-heap_t *heap_insert(heap_t **head, int value)
-{
-	return (node);
-}
-```
