@@ -29,8 +29,6 @@ typedef binary_tree_t heap_t;
 
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 int binary_tree_height(binary_tree_t *head);
-void adjust_node(heap_t *node);
-
 heap_t *complete_tree_insert(heap_t *head, int val, int target, int current);
 heap_t *heap_insert(heap_t **head, int value);
 void binary_tree_print(const binary_tree_t *);

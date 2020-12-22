@@ -1,5 +1,4 @@
 #include "binary_trees.h"
-#include <stdio.h>
 
 /**
  * heap_insert - insert a new node into a max binary heap
@@ -118,52 +117,4 @@ heap_t *complete_tree_insert(heap_t *head, int val, int target, int current)
 	}
 	/* if all else fails, return NULL */
 	return (NULL);
-}
-
-/**
- * adjust_node - sorts heap
- * @node: node that needs sorting within heap
- **/
-void adjust_node(heap_t *node)
-{
-	heap_t *tmp;
-
-	for (; node->parent && node->n > node->parent->n; node->parent = tmp)
-	{
-		/* Make children point to node's parent */
-		if (node->left)
-			node->left->parent = node->parent;
-		if (node->right)
-			node->right->parent = node->parent;
-		/* Make node's parent point to node */
-		if (node->parent->parent)
-		{
-			if (node->parent->parent->left == node->parent)
-				node->parent->parent->left = node;
-			else
-				node->parent->parent->right = node;
-		}
-		/* Swap left children */
-		tmp = node->parent->left, node->parent->left = node->left;
-		if (tmp != node)
-		{
-			node->left = tmp;
-			if (tmp)
-				tmp->parent = node;
-		}
-		else
-			node->left = node->parent;
-		/* Swap right children */
-		tmp = node->parent->right, node->parent->right = node->right;
-		if (tmp != node)
-		{
-			node->right = tmp;
-			if (tmp)
-				tmp->parent = node;
-		}
-		else
-			node->right = node->parent;
-		/* Swap parents */
-		tmp = node->parent->parent, node->parent->parent = node;
-	}
 }
