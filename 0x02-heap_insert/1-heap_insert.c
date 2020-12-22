@@ -10,7 +10,7 @@
 heap_t *heap_insert(heap_t **head, int value)
 {
 	heap_t *node, *tmp;
-	int height;
+	int i;
 
 	/* If no tree exists, make node head of tree and return */
 	if (*head == NULL)
@@ -21,10 +21,10 @@ heap_t *heap_insert(heap_t **head, int value)
 	}
 
 	/* Get tree height */
-	height = binary_tree_height(*head);
+	i = binary_tree_height(*head) - 1;
 
 	/* Use helper function to insert node */
-	node = complete_tree_insert(*head, value, height - 1, 1);
+	node = complete_tree_insert(*head, value, i, 1);
 
 	/* If node was not inserted, then node goes as left as possible */
 	if (!node)
@@ -36,11 +36,13 @@ heap_t *heap_insert(heap_t **head, int value)
 	}
 
 	/* heapify the tree! */
-	adjust_node(node);
-
-	/* If node, after heapification, is the head, set head equal to it */
-	if (node->parent == NULL)
-		*head = node;
+	while (node->parent && node->n > node->parent->n)
+	{
+		i = node->n;
+		node->n = node->parent->n;
+		node->parent->n = i;
+		node = node->parent;
+	}
 
 	return (node);
 }
