@@ -4,9 +4,9 @@
 
 In a text file, there is a single character `H`. Your text editor can execute only two operations in this file: `Copy All` and `Paste`. Given a number `n`, write a method that calculates the _fewest number of operations needed_ to result in exactly `n` `H` characters in the file.
 
-* Prototype: def minOperations(n)
+* Prototype: `def minOperations(n)`
 * Returns an integer
-* If n is impossible to achieve, return 0
+* If `n` is impossible to achieve, return `0`
 
 ### Example:
 
@@ -37,11 +37,13 @@ def minOperations(n):
     if n == 1:
         return 0
 
-	# this helper function will do all the dirty work
+    # this helper function will do all the dirty work
     def simulate(numChars, clipboard, operations):
-        if numChars == n:
+        
+	if numChars == n:
             return operations
-        if numChars > n:
+        
+	if numChars > n:
             return 0
 
         # Simulate pasting only
@@ -60,12 +62,12 @@ def minOperations(n):
             * adds 2 to operations
         """
         copyPaste = simulate(numChars * 2, numChars, operations + 2)
-        if copyPaste == 0:
+	
+        if copyPaste == 0 || copyPaste > pasteOnly:
             return pasteOnly
-        if pasteOnly == 0:
-            return copyPaste
-        return min(copyPaste, pasteOnly)
-
+	    
+        return copyPaste
+	
     # initiate simulation (starting at case where n = 2)
     return simulate(2, 1, 2)
 ```
