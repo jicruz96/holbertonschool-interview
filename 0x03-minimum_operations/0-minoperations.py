@@ -39,11 +39,11 @@ def minOperations(n):
             * adds 2 to operations
         """
         copyPaste = simulate(numChars * 2, numChars, operations + 2)
-        if copyPaste == 0:
+        
+        if copyPaste == 0 || copyPaste > pasteOnly:
             return pasteOnly
-        if pasteOnly == 0:
-            return copyPaste
-        return min(copyPaste, pasteOnly)
+        
+        return copyPaste
 
     # initiate simulation (starting at case where n = 2)
     return simulate(2, 1, 2)
