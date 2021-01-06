@@ -5,6 +5,9 @@ for question specifics.
 """
 
 
+from sys import argv
+
+
 def minOperations(n):
     """
     Calculates the minimum number of operations to go from one 'H' to n 'H's
@@ -12,7 +15,7 @@ def minOperations(n):
     """
 
     # If n is 1, 0 operations are needed.
-    if n < 1:
+    if n <= 1:
         return 0
 
     # Find smallest prime factors
@@ -21,3 +24,10 @@ def minOperations(n):
             return minOperations(int(n / i)) + i
 
     return n
+
+
+try:
+    i = int(argv[1])
+except:
+    i = 5
+print(minOperations(i))
