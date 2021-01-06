@@ -24,10 +24,3 @@ def minOperations(n):
             return minOperations(int(n / i)) + i
 
     return n
-
-
-try:
-    i = int(argv[1])
-except:
-    i = 5
-print(minOperations(i))
