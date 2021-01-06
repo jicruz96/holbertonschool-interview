@@ -62,7 +62,7 @@ sum of all prime factors. This approach can be seen here.
 
 
 ```python3
-def minOperations_sumOfFactors(n):
+def minOperations_sumOfPrimeFactors(n):
     """
     Calculates the minimum number of operations to go from one 'H' to n 'H's
     if the only available operations are "Copy All" and "Paste"
@@ -91,7 +91,7 @@ My initial solution used a recursive tactic to check the length of each
 possible variation of operation sequences. I return the smallest of these.
 
 ```python
-def minOperations(n):
+def minOperations_bruteForce(n):
     """
     calculates the minimum number of operations my hypothetical test editor
     would need to write n characters if the only available operations are
