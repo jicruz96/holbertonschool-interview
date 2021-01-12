@@ -23,11 +23,16 @@ My solution is straightforward.
 	<li>
 		I add the two grids together using a nested loop.
 		<ul>
-			<li>While I add them, I record whether or not the sum resulted in a number greater than 3 on grid2's cell. Therefore, after the sum is complete grid2 acts as a map that tells us which cells need to be stabilized.</li>
+			<li>While I add them, I record if grid1[i][j] became unstable onto grid2[i][j]. Therefore, after the sum is complete grid2 acts as a map of the location of unstable cells</li>
 		</ul>
 	</li>
-	<li>I topple the unstable cells, using grid2 as a map to find the unstable cells.</li>
-	<li>I recheck for unstable cells and repeat steps 2 and 3 until grid1is stable.</li>
+	<li>
+		I use grid2 to locate and stabilize the unstable cells
+		<ul>
+			<li>I stabilize an unstable cell by removing 4 grains from the cell and inserting one grain each onto the left, right, upper, and lower neighboring cells (if they exist)</li>
+		</ul>
+	</li>
+	<li>I recheck for unstable cells and repeat steps 2 and 3 until grid1 is stable.</li>
 </ol>
 
 In reality, the mapping of unstable cells onto grid2 is unnecessary to complete the sum accurately. But the interview exercise asked that we print the intermediate sandpile of each round of stabilization, which meant we needed to maintain a stage-by-stage order of cells to be stabilized.
