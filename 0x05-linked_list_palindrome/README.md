@@ -12,47 +12,47 @@ Write a function in C that checks if a singly linked list is a palindrome.
 My solution is in file [0-is_palindrome.c](./0-is_palindrome.c) and below:
 
 ```C++
+/**
+ * is_palindrome - checks if a linked list of int is a palindrome
+ * @head: head of list
+ * Return: 1 if palindrome or empty, 0 if not
+ **/
 int is_palindrome(listint_t **head)
 {
-    listint_t *previous_nums_reversed = NULL, *tmp, *new;
+	int i, list_len = 0;
+	listint_t *tmp, *end;
 
-    /* If list is empty or one node long, return 1 */
-    if (!head || !(*head) || !(*head)->next)
-        return (1);
+	/* if list is empty, return 1 */
+	if (!head || !(*head))
+		return (1);
 
+	/* find list length */
+	for (tmp = *head; tmp; tmp = tmp->next)
+		list_len++;
 
-    /* At each node, check if rest of list is same as list behind, reversed */
-    for (tmp = *head; tmp->next; tmp = tmp->next)
-    {
-        /* Add current number to front of previous_nums_reversed list */
-        new = malloc(sizeof(listint_t));
-        new->n = tmp->n;
-        new->next = previous_nums_reversed;
-        previous_nums_reversed = new;
-
-        /* check... */
-        if (rest_is_same_as_prevs_reversed(tmp->next, previous_nums_reversed))
-            return (1);
-    }
-    
-    /* if no matches are found, return 0 */
-    return (0);
+	/* point end to middle of list */
+	for (i = 0, end = *head; i < (list_len / 2); i++)
+		end = end->next;
+	tmp = *head;
+	return (is_palindrome_recursion(&tmp, end));
 }
 
-int rest_is_same_as_prevs_reversed(listint_t *rest, listint_t *prevs_reversed)
+/**
+ * is_palindrome_recursion - does all the magic
+ * @front: front pointer
+ * @end: end pointer
+ * Return: 1 if palindrome, 0 if not
+ **/
+int is_palindrome_recursion(listint_t **front, listint_t *end)
 {
-
-    if (rest->n != prevs_reversed->n)
-        prevs_reversed = prevs_reversed->next;
-
-    while (rest && prevs_reversed)
-    {
-        if (rest->n != prevs_reversed->n)
-            return (0);
-        rest = rest->next;
-        prevs_reversed = prevs_reversed->next;
-    }
-    
-    return (rest == prevs_reversed);
+	if (end->next)
+	{
+		/* if there are more numbers, check those first */
+		if (!is_palindrome_recursion(front, end->next))
+			return (0);
+		/* shift front ahead once to check against current end */
+		*front = (*front)->next;
+	}
+	return ((*front)->n == end->n);
 }
 ```
