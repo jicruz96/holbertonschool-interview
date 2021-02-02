@@ -18,26 +18,25 @@ I, the hare, move through the list *two nodes at a time* and I maintain a traili
 If at any point the leading pointer is equal to the trailing pointer, then we must have looped through, so we return `1`. If our leading pointer reaches the end of the list, then we know there is no cycle and we return `0`.
 
 
-```C
 int check_cycle(listint_t *list)
 {
 	listint_t *trailer;
 
-	/* if there is no list, there is no cycle, return 0 */
+	/* If there is no list, there is no cycle. Return 0 */
 	if (!list)
 		return (0);
-	
-	/* set trailer to 1st node & list to 2nd node */
+
+	/* Set trailer to 1st node & list to 2nd node. */
 	trailer = list;
 	list = list->next;
 
-	/* traverse list until pointers meet or end of list near */
-	while (list != trailer && list->next)
+	/* Traverse list until pointers meet or end of list found. */
+	while (list && list->next && list != trailer)
 	{
 		trailer = trailer->next;
 		list = list->next->next;
 	}
-	
+
 	return (list == trailer);
 }
 ```

@@ -9,16 +9,16 @@ int check_cycle(listint_t *list)
 {
 	listint_t *trailer;
 
-	/* if there is no list, there is no cycle, return 0 */
+	/* If there is no list, there is no cycle. Return 0 */
 	if (!list)
 		return (0);
 
-	/* set trailer to 1st node & list to 2nd node */
+	/* Set trailer to 1st node & list to 2nd node. */
 	trailer = list;
 	list = list->next;
 
-	/* traverse list until pointers meet or end of list near */
-	while (list != trailer && list->next)
+	/* Traverse list until pointers meet or end of list found. */
+	while (list && list->next && list != trailer)
 	{
 		trailer = trailer->next;
 		list = list->next->next;
