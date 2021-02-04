@@ -40,11 +40,12 @@ class Log_Parser:
 
         self.run()
 
-    def sigint_handler(self, signum, frame):
-        """
-        prints stats if a Keyboard Interruption (CTRL + C) occurs
-        """
-        self.print_stats()
+    # def sigint_handler(self, signum, frame):
+    #     """
+    #     prints stats if a Keyboard Interruption (CTRL + C) occurs
+    #     """
+    #     self.print_stats()
+    #     exit(0)
 
     def get_Pattern_Matcher(self, request):
         """
