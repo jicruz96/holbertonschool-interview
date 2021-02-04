@@ -32,7 +32,7 @@ class Log_Parser:
             * status_codes (dict(int: int)): frequency table for status codes
             * Pattern_Matcher    (re.Pattern obj): validates user input
         """
-        signal.signal(signal.SIGINT, self.sigint_handler)
+        # signal.signal(signal.SIGINT, self.sigint_handler)
         self.total_size = 0
         self.status_codes = {code: 0 for code in status_codes}
         self.print_frequency = print_frequency
