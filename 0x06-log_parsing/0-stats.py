@@ -92,6 +92,7 @@ class Log_Parser:
             if count == self.print_frequency:
                 count = 0
                 self.print_stats()
+        self.print_stats()
         return (0)
 
     def print_stats(self):
@@ -101,7 +102,8 @@ class Log_Parser:
         """
         print('File size: {}'.format(self.total_size))
         for status_code, frequency in sorted(self.status_codes.items()):
-            print('{}: {}'.format(status_code, frequency))
+            if frequency:
+                print('{}: {}'.format(status_code, frequency))
 
 
 if __name__ == '__main__':
