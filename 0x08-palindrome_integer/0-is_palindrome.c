@@ -1,4 +1,5 @@
 #include "palindrome.h"
+#include <limits.h>
 
 /**
  * is_palindrome - checks if an unsigned integer is a palindrome
@@ -10,8 +11,12 @@ int is_palindrome(unsigned long n)
 	unsigned long shaver = 1;
 
 	/* prevent division by zero errors */
-	if (!n)
+	if (n < 10)
 		return (1);
+
+	/* handles limit edge case */
+	if (n == ULONG_MAX)
+		return (0);
 
 	/* get divisor to same magnitude as n */
 	while (n / shaver)
@@ -19,7 +24,7 @@ int is_palindrome(unsigned long n)
 	shaver /= 10;
 
 	/* verify palindrome-ness */
-	while (n > 9)
+	while (n >= 10)
 	{
 		/* last digit (n%10) must equal first (n/shaver) */
 		if (n % 10 != n / shaver)
