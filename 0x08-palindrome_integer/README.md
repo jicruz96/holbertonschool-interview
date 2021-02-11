@@ -10,10 +10,26 @@ Write a function in C that checks if a given unsigned interger is a palindrome.
 
 ## Proposed Solution 💡
 
-### 10 february 2021
+### 11 february 2021 - final answer
 
-This code would be even simpler if I could have used some math functions.
-The `shaver` value could have been calculated using `floor(log10(n))` and some typecasts. But this is simple, short and sweet and gets the job done.
+After speaking with my friend [Usman](https://github.com/UsmanGTA), I realized I could vastly simplify my approach while satisfying all edge cases by manually generating a new number that is the reverse of n. Then, we just return the result of the comparison.
+
+```C++
+int is_palindrome(unsigned long n)
+{
+	unsigned long n_reverse = 0, n_copy = n;
+
+	/* Make a new number that is reverse of n */
+	for (n_copy = n; n_copy; n_copy /= 10)
+		n_reverse = (n_reverse * 10) + (n_copy % 10);
+
+	return (n_reverse == n);
+}
+```
+
+### 10 february 2021 - first attempt
+
+This was my first go at the problem. This code would be even simpler if I could have used some math functions. The `shaver` value could have been calculated using `floor(log10(n))` and some typecasts. But this is simple, short and sweet and gets the job done.
 
 ```C++
 int is_palindrome(unsigned long n)
