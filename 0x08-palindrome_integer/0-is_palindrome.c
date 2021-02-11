@@ -8,34 +8,11 @@
  **/
 int is_palindrome(unsigned long n)
 {
-	unsigned long shaver = 1;
+	unsigned long n_reverse = 0, n_copy = n;
 
-	/* prevent division by zero errors */
-	if (n < 10)
-		return (1);
+	/* Make a new number that is reverse of n */
+	for (n_copy = n; n_copy; n_copy /= 10)
+		n_reverse = (n_reverse * 10) + (n_copy % 10);
 
-	/* handles limit edge case */
-	if (n == ULONG_MAX)
-		return (0);
-
-	/* get divisor to same magnitude as n */
-	while (n / shaver)
-		shaver *= 10;
-	shaver /= 10;
-
-	/* verify palindrome-ness */
-	while (n >= 10)
-	{
-		/* last digit (n%10) must equal first (n/shaver) */
-		if (n % 10 != n / shaver)
-			return (0);
-
-		/* remove first and last digits */
-		n = (n % shaver) / 10;
-
-		/* re-size shaver to n's new magnitude */
-		shaver /= 100;
-	}
-
-	return (1);
+	return (n_reverse == n);
 }
