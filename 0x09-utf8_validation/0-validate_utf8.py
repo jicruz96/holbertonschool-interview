@@ -12,11 +12,11 @@ def validUTF8(data):
         if (data[i] >> 7) & 1:
 
             # Find character byte size
-            if (data[i] >> 3) & 0b11110 == 0b11110:
+            if (data[i] >> 3) & 0b11111 == 0b11110:
                 char_size = 4
-            elif (data[i] >> 4) & 0b1110 == 0b1110:
+            elif (data[i] >> 4) & 0b1111 == 0b1110:
                 char_size = 3
-            elif (data[i] >> 5) & 0b110 == 0b110:
+            elif (data[i] >> 5) & 0b111 == 0b110:
                 char_size = 2
             else:
                 return False
