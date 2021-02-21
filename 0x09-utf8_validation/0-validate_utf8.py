@@ -22,8 +22,8 @@ def validUTF8(data):
                 return False
 
             # If not enough bytes to complete character, return False
-            # if char_size > len(data) - i:
-            #    return False
+            if char_size > len(data) - i:
+                return False
 
             # Check character's other bytes.
             for j in range(i + 1, i + char_size):
