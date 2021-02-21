@@ -30,6 +30,6 @@ def validUTF8(data):
                 # If 7th byte is 1 or 8th byte is 0, return False
                 if (data[j] >> 6) & 1 or (data[j] >> 7) & 1 == 0:
                     return False
-            i += j
+            i = j
         i += 1
     return True
