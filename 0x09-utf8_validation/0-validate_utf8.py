@@ -12,12 +12,14 @@ def validUTF8(data):
         if (data[i] >> 7) & 1:
 
             # Find character byte size
-            char_size = 4
-            while (data[i] >> char_size) & ((1 << char_size) - 1) == 0:
-                char_size -= 1
-                # If no legal size, return False
-                if char_size == 1:
-                    return False
+            if (data[i] >> 3) & 0b11110 == 0b11110:
+                char_size = 4
+            elif (data[i] >> 4) & 0b1110 == 0b1110:
+                char_size = 3
+            elif (data[i] >> 5) & 0b110 == 0b110:
+                char_size = 2
+            else:
+                return False
 
             # If not enough bytes to complete character, return False
             if char_size > len(data) - i:
@@ -26,7 +28,7 @@ def validUTF8(data):
             # Check character's other bytes.
             for j in range(i + 1, i + char_size):
                 # If 7th byte is 1 or 8th byte is 0, return False
-                if (data[j] >> 6) ^ 1 or (data[j] >> 7) & 1:
+                if (data[j] >> 6) & 1 or (data[j] >> 7) & 1 == 0:
                     return False
             i += j
         i += 1
