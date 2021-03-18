@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 from sys import argv
-import timeit
 
 
 def safe_position(queens, row, column):
