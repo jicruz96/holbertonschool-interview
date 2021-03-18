@@ -25,7 +25,7 @@ def safe_position(queens, row, column):
     return True
 
 
-def nqueens(N, queens=[]):
+def nqueens(rows, queens=[], col=0):
     """prints all possible position combinations for N queens in an NxN
     chessboard, such that no queen can attack another queen
 
@@ -37,15 +37,9 @@ def nqueens(N, queens=[]):
         print(queens)
         return
 
-    if len(queens):
-        rows = range(queens[-1][0], N)
-    else:
-        rows = range(N)
-
-    for i in rows:
-        for j in range(N):
-            if safe_position(queens, i, j):
-                nqueens(N, queens + [[i, j]])
+    for row in rows:
+        if safe_position(queens, row, col):
+            nqueens(rows.difference({row}), queens + [[row, col]], col + 1)
 
 
 if __name__ == '__main__':
@@ -64,4 +58,4 @@ if __name__ == '__main__':
         print('N must be at least 4')
         exit(1)
 
-    nqueens(N)
+    nqueens(set(range(N)))
