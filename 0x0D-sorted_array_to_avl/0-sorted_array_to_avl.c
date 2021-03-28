@@ -47,6 +47,8 @@ avl_t *helper(int *array, int start, int end, avl_t *parent)
 	if (start <= end)
 	{
 		node = create_node(array[mid], parent);
+		if (node == NULL)
+			return (NULL);
 		node->left = helper(array, start, mid - 1, node);
 		node->right = helper(array, mid + 1, end, node);
 	}
