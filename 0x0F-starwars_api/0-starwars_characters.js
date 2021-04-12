@@ -2,7 +2,7 @@
 
 // Import the request module
 const request = require('request');
-const URL = 'https://swapi-api.hbtn.io/api/films/' + process.argv[2] + '/';
+const URL = `https://swapi-api.hbtn.io/api/films/${process.argv[2]}/`;
 
 async function getCharacterName (url) {
   return new Promise((resolve, reject) => {
