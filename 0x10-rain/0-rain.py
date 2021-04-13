@@ -3,36 +3,38 @@
 
 
 def rain(walls):
-    """ computes amount of rain caputred by a set of walls """
+    """ computes amount of rain caputred by a set of walls
+    
+    Args:
+        * walls (List[int]): Heights of walls.
+     """
 
-    i = 0
-    water = 0
+    left = 0
+    total_rain = 0
+    while left < len(walls) - 1:
 
-    # Skip the void
-    while i < len(walls) and walls[i] == 0:
-        i += 1
+        # Find right side wall. Must be at least as tall as left wall
+        tallest = right = left + 1
+        while right < len(walls) and walls[right] < walls[left]:
+            if walls[right] > walls[tallest]:
+                tallest = right
+            right += 1
+        
+        # If a right wall wasn't found, fall back to the tallest wall found
+        if right == len(walls):
+            right = tallest
 
-    while i < len(walls) - 1:
-
-        # Find a right side wall (assume i is index of left side wall)
-        for j in range(i + 1, len(walls)):
-            # Right wall must be a wall larger or equal to wall[i]
-            if walls[j] >= walls[i]:
-                break
-
-        # Base is distance between walls
-        base = j - i - 1
-
-        # Height is the smaller of the two walls
-        height = min(walls[i], walls[j])
-
-        # Any walls between these two are subtracted from the total
-        not_water = sum(walls[i + 1:j - 1])
-
-        # Bada-bing
-        water += (base * height) - not_water
+        """
+        Amount of rain that fits between left and right walls is same as
+        area of rectangle formed by left and right walls, minus the heights of
+        walls inside rectangle
+        """
+        inner_wall_heights = sum(walls[left + 1:right])
+        base = right - left - 1
+        height = min(walls[left], walls[right])
+        total_rain += (base * height) - inner_wall_heights
 
         # Restart algorithm at right wall (treat as a left wall now)
-        i = j
+        left = right
 
-    return water
+    return total_rain
