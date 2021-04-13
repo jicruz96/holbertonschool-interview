@@ -4,7 +4,7 @@
 
 def rain(walls):
     """ computes amount of rain caputred by a set of walls
-    
+
     Args:
         * walls (List[int]): Heights of walls.
      """
@@ -19,7 +19,7 @@ def rain(walls):
             if walls[right] > walls[tallest]:
                 tallest = right
             right += 1
-        
+
         # If a right wall wasn't found, fall back to the tallest wall found
         if right == len(walls):
             right = tallest
