@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" Script for rain interview question """
 
 
 def rain(walls):
@@ -11,12 +12,11 @@ def rain(walls):
     while i < len(walls) and walls[i] == 0:
         i += 1
 
-    # Loop through walls
     while i < len(walls) - 1:
 
         # Find a right side wall (assume i is index of left side wall)
         for j in range(i + 1, len(walls)):
-            # Use index of first wall larger or equal to wall[i]
+            # Right wall must be a wall larger or equal to wall[i]
             if walls[j] >= walls[i]:
                 break
 
