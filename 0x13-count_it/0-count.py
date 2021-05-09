@@ -115,7 +115,6 @@ def count_words(subreddit, word_list):
         """
 
         if word_count_list is None:
-            print('')
             return
 
         for word, count in word_count_list:
