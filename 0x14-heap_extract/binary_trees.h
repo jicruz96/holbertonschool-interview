@@ -1,6 +1,7 @@
 #ifndef BINARY_TREES_H
 #define BINARY_TREES_H
 
+#define max(a, b) (a > b ? a : b)
 /**
  * struct binary_tree_s - Binary tree node
  *
@@ -21,5 +22,7 @@ typedef struct binary_tree_s binary_tree_t;
 typedef struct binary_tree_s heap_t;
 
 int heap_extract(heap_t **root);
+int heap_height(heap_t *node, int height);
+heap_t *heap_last_node_level_order(heap_t *tree);
 
 #endif /* BINARY_TREES_H */
