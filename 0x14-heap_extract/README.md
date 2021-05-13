@@ -19,3 +19,5 @@ Details in the [wiki page](https://en.wikipedia.org/wiki/Heap_(data_structure)).
 <br>
 
 ## Proposed Solution 💡
+
+Check the file [0-heap_extract.c](./0-heap_extract.c) for my solution.
