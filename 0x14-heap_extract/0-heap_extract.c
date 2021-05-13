@@ -8,35 +8,36 @@
  **/
 int heap_extract(heap_t **root)
 {
-	int n;
+	int n, height;
 	heap_t *last_node;
 
 	if (root == NULL || *root == NULL)
 		return (0);
 
-    /* Save root value */
 	n = (*root)->n;
+	height = heap_height(*root, 1);
 
-	/* Get last node (level-order) */
-	last_node = heap_last_node_level_order(*root, heap_height(*root, 1), 1);
-    /* Place last node's data at the root */
-	(*root)->n = last_node->n;
-
-	/* if root is last node, set root to NULL */
-	if (*root == last_node)
+	if (height == 1)
+	{
+		last_node = *root;
 		*root = NULL;
-	else if (last_node->parent->right == last_node)
-		last_node->parent->right = NULL;
+	}
 	else
-		last_node->parent->left = NULL;
+	{
+		last_node = heap_last_node_level_order(*root, height, 1);
 
-	/* Delete last node */
+		(*root)->n = last_node->n;
+
+		if (last_node->parent->right == last_node)
+			last_node->parent->right = NULL;
+		else
+			last_node->parent->left = NULL;
+	}
+
 	free(last_node);
 
-	/* heapify the heap */
 	heapify(*root);
 
-	/* Return number */
 	return (n);
 }
 
@@ -72,7 +73,7 @@ heap_t *heap_last_node_level_order(heap_t *node, int height, int curr_height)
 	if (!node)
 		return (NULL);
 
-	if (curr_height == height - 1)
+	if (curr_height >= height - 1)
 		return (node->right ? node->right : node->left);
 
 	tmp = heap_last_node_level_order(node->right, height, curr_height + 1);
