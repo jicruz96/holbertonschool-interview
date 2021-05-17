@@ -16,4 +16,4 @@
 | <strong align="center" style="font-size: 1.2em">[0x09-utf8_validation](./0x09-utf8-validation)</strong> | Write a method that determines if a given data set represents a valid UTF-8 encoding. |
 | <strong align="center" style="font-size: 1.2em">[0x0A-slide_line](./0x0A-slide_line)</strong> | Write a function in C that reproduces the mechanics of [the 2048 game](https://play2048.co) on a single horizontal line. |
 | <strong align="center" style="font-size: 1.2em">[0x0B-menger](./0x0B-menger)</strong> | Write a function that draws a 2D Menger Sponge |
-| <strong align="center" style="font-size: 1.2em">[0x0C-nqueens](./0x0B-menger)</strong> | Write a program in Python that solves the [N Queens problem](https://en.wikipedia.org/wiki/Eight_queens_puzzle) |
+| <strong align="center" style="font-size: 1.2em">[0x0C-nqueens](./0x0C-nqueens)</strong> | Write a program in Python that solves the [N Queens problem](https://en.wikipedia.org/wiki/Eight_queens_puzzle) |
