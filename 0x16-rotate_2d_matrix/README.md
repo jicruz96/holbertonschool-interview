@@ -1,4 +1,4 @@
-# Interview Prep: Rotate a 2D Matric
+# Interview Prep: Rotate a 2D Matrix
 
 ## Description of Problems, Constraints
 
