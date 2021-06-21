@@ -11,6 +11,7 @@ def makeChange(coins, total):
     """
     def makeChangeHelper(coins, total, count=0):
         """Helper function for makeChange"""
+        print(coins, total)
 
         if total <= 0:
             return count
@@ -28,4 +29,4 @@ def makeChange(coins, total):
         return result
 
     sorted_coins = sorted(coins, reverse=True)
-    return makeChangeHelper(coins, total)
+    return makeChangeHelper(sorted_coins, total)
