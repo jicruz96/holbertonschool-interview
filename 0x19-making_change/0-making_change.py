@@ -27,5 +27,5 @@ def makeChange(coins, total):
             result = makeChangeHelper(coins[1:], newTotal, count)
         return result
 
-    coins.sort(reverse=True)
+    sorted_coins = sorted(coins, reverse=True)
     return makeChangeHelper(coins, total)
