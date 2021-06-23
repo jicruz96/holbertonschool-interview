@@ -20,11 +20,15 @@ def makeChange(coins, total):
         newTotal = total % coins[0]
         result = makeChangeHelper(coins[1:], newTotal, count)
 
-        while result == -1 and newTotal != total:
-            count -= 1
-            newTotal += coins[0]
-            result = makeChangeHelper(coins[1:], newTotal, count)
+        if result == -1:
+            if len(coins) - 1 != 0 and coins[0] % sum(coins[1:]) == 0:
+                return -1
+
+            while result == -1 and newTotal != total:
+                count -= 1
+                newTotal += coins[0]
+                result = makeChangeHelper(coins[1:], newTotal, count)
+
         return result
 
-    sorted_coins = sorted(coins, reverse=True)
-    return makeChangeHelper(sorted_coins, total)
+    return makeChangeHelper(sorted(coins, reverse=True), total)
