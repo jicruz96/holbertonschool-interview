@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ see README.md for problem description """
 
+
 def makeChange(coins, total):
     """ makes Change """
 
@@ -33,5 +34,8 @@ def makeChange(coins, total):
             cache[total] = -1
 
         return cache[total]
+
+    if total <= 0:
+        return 0
 
     return helper(sorted(coins, reverse=True), total)

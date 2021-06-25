@@ -16,31 +16,42 @@ Given a pile of coins of different values, determine the fewest number of coins 
 
 My solution is in the file [0-making_change.py](./0-making_change.py) and below.
 
-This solution sorts the coins in descending order, then calculates how many of the largest coin can fit into the total. Then, we recurse to the next greatest coin using the remaining amount as the new total. If this recursion fails to find an answer, then we add one unit of the greatest coin and recurse again.
+This solution sorts the coins in descending order, then calculates how many of the largest coin can fit into the total. Then, we recurse to the next greatest coin using the remaining amount as the new total. If this recursion fails to find an answer, then we add one unit of the greatest coin and recurse again. We use a cache of previous answers to avoid re-calculating results during recursive calls.
 
 ```python
 def makeChange(coins, total):
 
-    def makeChangeHelper(coins, total, count=0):
-        if total <= 0:
-            return count
-        if len(coins) == 0:
-            return -1
+    cache = {coin: 1 for coin in coins}
+    cache[0] = 0
 
-        count += total // coins[0]
-        newTotal = total % coins[0]
-        result = makeChangeHelper(coins[1:], newTotal, count)
+    def helper(coins, total):
+        for coin in coins:
+            if coin > total:
+                continue
 
-        if result == -1:
-            if len(coins) - 1 != 0 and coins[0] % sum(coins[1:]) == 0:
-                return -1
+            coin_count = total // coin
+            rest = total % coin
 
-            while result == -1 and newTotal != total:
-                count -= 1
-                newTotal += coins[0]
-                result = makeChangeHelper(coins[1:], newTotal, count)
+            while cache.get(rest) is None and rest != total:
+                if helper(coins, rest) != -1:
+                    break
+                rest += coin
+                coin_count -= 1
 
-        return result
+            if rest == total or cache.get(rest) == -1:
+                continue
 
-    return makeChangeHelper(sorted(coins, reverse=True), total)
+            coin_count += cache[rest]
+            if cache.get(total) is None or cache[total] > coin_count:
+                cache[total] = coin_count
+
+        if cache.get(total) is None:
+            cache[total] = -1
+
+        return cache[total]
+
+    if total <= 0:
+        return 0
+
+    return helper(sorted(coins, reverse=True), total)
 ```
