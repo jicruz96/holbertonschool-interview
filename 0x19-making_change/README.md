@@ -34,7 +34,7 @@ def makeChange(coins, total):
             coin_count = total // coin
             rest = total % coin
 
-            while cache.get(rest) is None and helper(coins, rest) == -1:
+            while cache.get(rest) is None and helper(coins[1:], rest) == -1:
                 rest += coin
                 coin_count -= 1
 
