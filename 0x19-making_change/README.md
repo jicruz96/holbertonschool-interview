@@ -25,28 +25,23 @@ def makeChange(coins, total):
     cache[0] = 0
 
     def helper(coins, total):
+        """ recursive helper for makeChange """
+
+        cache[total] = -1
+
         for coin in coins:
-            if coin > total:
-                continue
 
             coin_count = total // coin
             rest = total % coin
 
-            while cache.get(rest) is None and rest != total:
-                if helper(coins, rest) != -1:
-                    break
+            while cache.get(rest) is None and helper(coins, rest) == -1:
                 rest += coin
                 coin_count -= 1
 
-            if rest == total or cache.get(rest) == -1:
-                continue
-
-            coin_count += cache[rest]
-            if cache.get(total) is None or cache[total] > coin_count:
-                cache[total] = coin_count
-
-        if cache.get(total) is None:
-            cache[total] = -1
+            if cache.get(rest) != -1:
+                coin_count += cache[rest]
+                if cache[total] > coin_count or cache[total] == -1:
+                    cache[total] = coin_count
 
         return cache[total]
 
