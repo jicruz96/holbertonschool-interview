@@ -1,34 +1,37 @@
 #!/usr/bin/python3
-""" See README.md for problem description """
-
+""" see README.md for problem description """
 
 def makeChange(coins, total):
-    """Returns the smallest number of coins needed to add up to the toal
+    """ makes Change """
 
-    Args:
-        coins (list[int]): coin denominations
-        total (int): target value
-    """
-    def makeChangeHelper(coins, total, count=0):
-        """Helper function for makeChange"""
-        if total <= 0:
-            return count
-        if len(coins) == 0:
-            return -1
+    cache = {coin: 1 for coin in coins}
+    cache[0] = 0
 
-        count += total // coins[0]
-        newTotal = total % coins[0]
-        result = makeChangeHelper(coins[1:], newTotal, count)
+    def helper(coins, total):
+        """ recursive helper for makeChange """
+        for coin in coins:
+            if coin > total:
+                continue
 
-        if result == -1:
-            if len(coins) - 1 != 0 and coins[0] % sum(coins[1:]) == 0:
-                return -1
+            coin_count = total // coin
+            rest = total % coin
 
-            while result == -1 and newTotal != total:
-                count -= 1
-                newTotal += coins[0]
-                result = makeChangeHelper(coins[1:], newTotal, count)
+            while cache.get(rest) is None and rest != total:
+                if helper(coins, rest) != -1:
+                    break
+                rest += coin
+                coin_count -= 1
 
-        return result
+            if rest == total or cache.get(rest) == -1:
+                continue
 
-    return makeChangeHelper(sorted(coins, reverse=True), total)
+            coin_count += cache[rest]
+            if cache.get(total) is None or cache[total] > coin_count:
+                cache[total] = coin_count
+
+        if cache.get(total) is None:
+            cache[total] = -1
+
+        return cache[total]
+
+    return helper(sorted(coins, reverse=True), total)
