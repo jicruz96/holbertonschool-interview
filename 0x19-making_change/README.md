@@ -16,37 +16,25 @@ Given a pile of coins of different values, determine the fewest number of coins 
 
 My solution is in the file [0-making_change.py](./0-making_change.py) and below.
 
-This solution sorts the coins in descending order, then calculates how many of the largest coin can fit into the total. Then, we recurse to the next greatest coin using the remaining amount as the new total. If this recursion fails to find an answer, then we add one unit of the greatest coin and recurse again. We use a cache of previous answers to avoid re-calculating results during recursive calls.
+This solution uses a cache of all integer values less than or equal to the target and then calculates the amount of change needed for each one of these subtotals, leading up to the total, taking advantage of the cache of previous results to get the result for the current subtotal.
 
+Time complexity: `O(total * len(coins))`
 ```python
 def makeChange(coins, total):
 
-    cache = {coin: 1 for coin in coins}
-    cache[0] = 0
-
-    def helper(coins, total):
-        """ recursive helper for makeChange """
-
-        cache[total] = -1
-
-        for coin in coins:
-
-            coin_count = total // coin
-            rest = total % coin
-
-            while cache.get(rest) is None and helper(coins[1:], rest) == -1:
-                rest += coin
-                coin_count -= 1
-
-            if cache.get(rest) != -1:
-                coin_count += cache[rest]
-                if cache[total] > coin_count or cache[total] == -1:
-                    cache[total] = coin_count
-
-        return cache[total]
-
     if total <= 0:
         return 0
+    
+    inf = float('inf')
+    cache = [0] + [inf] * total
 
-    return helper(sorted(coins, reverse=True), total)
+    for i in range(len(cache)):
+        for coin in coins:
+            if coin <= i:
+                cache[coin] = min(cache[i - coin], cache[coin])
+    
+    if cache[total] != inf:
+        return cache[total]
+    
+    return -1
 ```
