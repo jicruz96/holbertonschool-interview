@@ -52,6 +52,11 @@ List *list_node_init(char *str, List *next, List *prev)
 	if (node)
 	{
 		node->str = strdup(str);
+		if (str != NULL && node->str == NULL)
+		{
+			free(node);
+			return (NULL);
+		}
 		node->next = next;
 		node->prev = prev;
 	}
