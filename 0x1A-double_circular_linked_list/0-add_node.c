@@ -10,20 +10,12 @@
  */
 List *add_node_end(List **list, char *str)
 {
-	List *tmp;
-
 	if (*list == NULL)
 	{
 		*list = list_node_init(str, NULL, NULL);
+		(*list)->prev = *list;
+		(*list)->next = *list;
 		return (*list);
-	}
-
-	if ((*list)->next == NULL)
-	{
-		tmp = list_node_init(str, *list, *list);
-		(*list)->next = tmp;
-		(*list)->prev = tmp;
-		return (tmp);
 	}
 
 	(*list)->prev->next = list_node_init(str, *list, (*list)->prev);
