@@ -13,8 +13,11 @@ List *add_node_end(List **list, char *str)
 	if (*list == NULL)
 	{
 		*list = list_node_init(str, NULL, NULL);
-		(*list)->prev = *list;
-		(*list)->next = *list;
+		if (*list)
+		{
+			(*list)->prev = *list;
+			(*list)->next = *list;
+		}
 		return (*list);
 	}
 
