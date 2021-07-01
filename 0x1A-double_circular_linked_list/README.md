@@ -18,4 +18,4 @@ Create the source file `0-add_node.c` that contains the following functions:
 
 ## Proposed Solution 💡
 
-See (0-add_node.c)[./0-add_node.c]
+See file [0-add_node.c](./0-add_node.c)
