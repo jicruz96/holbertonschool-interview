@@ -11,4 +11,4 @@ Write a function that sorts an array of integers in ascending order using the Ra
 
 ## Proposed Solution 💡
 
-See (0-radix_sort.c)[./0-radix_sort.c]
+See [0-radix_sort.c](./0-radix_sort.c)
