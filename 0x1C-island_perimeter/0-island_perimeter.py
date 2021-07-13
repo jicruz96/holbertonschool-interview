@@ -31,7 +31,7 @@ def cell_perimeter(grid, i, j):
 
 
 def solution1(grid):
-    """O(n^2) solution"""
+    """O(n) solution (n = len(grid) * len(grid[0]))"""
 
     perimeter = 0
     for i in range(len(grid)):
@@ -42,5 +42,8 @@ def solution1(grid):
 
 
 def island_perimeter(grid):
-    """Calculates the perimeter of an "island" represented by 1's on a rectangular grid of zeroes"""
+    """
+    Calculates the perimeter of an "island" represented by 1's on a
+    rectangular grid of zeroes
+    """
     return solution1(grid)
