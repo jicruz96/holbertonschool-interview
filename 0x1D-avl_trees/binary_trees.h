@@ -1,7 +1,7 @@
 #ifndef _BINARY_TREES_H_
 #define _BINARY_TREES_H_
 
-#define abs(x) ((x) < 0 ? (-x) : (x))
+#define abs(x) ((x) < 0 ? (-(x)) : (x))
 
 
 /**
