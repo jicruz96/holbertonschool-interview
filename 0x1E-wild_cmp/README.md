@@ -1,22 +1,21 @@
-# Interview Prep: Is this an AVL Tree?
+# Interview Prep: Wild Compare
 
 ## Description of Problem
 
-Write a function that checks if a binary tree is a valid AVL Tree
+Write a function that compares two strings and returns 1 if the strings can be considered identical, otherwise return 0.
 
-* Prototype: `int binary_tree_is_avl(const binary_tree_t *tree);`
-    * Where `tree` is a pointer to the root node of the tree to check
-* Your function must return 1 if tree is a valid AVL Tree, and 0 otherwise
-* If tree is NULL, return 0
+* Prototype: `int wildcmp(char *s1, char *s2);`
+    * s2 can contain the special character `*`.
+    * The special char `*` can replace any string (including an empty string)
 
 
 ## Proposed Solution 💡
 
-See [0-binary_tree_is_avl.c](./0-binary_tree_is_avl.c) for my solution. To see an example of my solution in use, compile the test program available in the repository like this:
+See [0-wildcmp.c](./0-wildcmp.c) for my solution. To see an example of my solution in use, compile the test program available in the repository like this:
 ```bash
-$ gcc -Wall -Werror -Wextra -pedantic *.c -o is_avl_test
+$ gcc -Wall -Werror -Wextra -pedantic *.c -o ildcmp
 ```
-Then you will have a file called `is_avl_test` which you can run:
+Then you will have a file called `wildcmp` which you can run:
 ```bash
-$ ./is_avl_test
+$ ./wildcmp
 ```
