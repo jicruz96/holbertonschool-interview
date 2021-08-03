@@ -2,24 +2,21 @@
 """ See problem description in README.md """
 
 
-def pascal_triangle(n, prev_rows=None):
-    """Prints the first n rows of Pascal's Triangle
+def pascal_triangle(n):
+    """Returns the first n rows of Pascal's Triangle
 
     Args:
-        n (int): j of rows to print
+        n (int): number of rows to return
+
+    Return:
+        List[List]: n rows of pascal's triangle
     """
 
-    if n <= 0:
-        return []
     pascal = []
-    prev_row = None
-    for i in range(n):
-        row = []
-        for j in range(i + 1):
-            if j == 0 or j == i:
-                row.append(1)
-            elif prev_row:
-                row.append(prev_row[j] + prev_row[j - 1])
+    for i in range(0, n):
+        row = [1]
+        if i:
+            row += [prev_row[j] + prev_row[j - 1] for j in range(1, i)] + [1]
         pascal.append(row)
         prev_row = row
     return pascal
