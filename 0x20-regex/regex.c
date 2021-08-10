@@ -1,10 +1,6 @@
 #include "regex.h"
 #include <stdio.h>
 
-#ifndef NULL
-#define NULL ((void *)0)
-#endif /* NULL */
-
 /**
  * helper - helper for regex_match
  *
