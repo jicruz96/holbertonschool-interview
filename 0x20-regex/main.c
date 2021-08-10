@@ -14,9 +14,9 @@ void test_match(char const *s, char const *p)
 	printf("string: %s\npattern: %s\n\n", s, p);
 
 	if (regex_match(s, p))
-		printf("result: NOT A MATCH\n\n");
-	else
 		printf("result: MATCH\n\n");
+	else
+		printf("result: NOT A MATCH\n\n");
 }
 
 /**
