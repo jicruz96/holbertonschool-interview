@@ -12,29 +12,29 @@
  */
 int helper(char const *str, char const *pattern, char const *trailer, int call)
 {
-	fprintf(stderr, "%*s[%s] | [%s]\n", 4 * (call + 1), "", str, pattern);
-
+	fprintf(stderr, "%*s[%s] | [%s]\n", 4 * ++call, "", str, pattern);
 	if (*str == '\0')
 	{
+		if (*pattern == '\0')
+			return (1);
 		if (*pattern == '*')
 		{
 			if (!trailer)
 				return (0);
 			while (*pattern == '*')
 				pattern++;
+			return (helper(str, pattern, trailer, call));
 		}
-		return (*pattern == '\0');
+		return (*(pattern + 1) == '*' && helper(str, pattern + 2, pattern, call));
 	}
-
 	if (*str == '*' || *str == '.' || *pattern == '\0')
 		return (0);
-
 	if (*pattern == '*')
 	{
 		if (!trailer)
 			return (0);
 		if (*trailer == '.' || *trailer == *str)
-			if (helper(str + 1, pattern, trailer, call + 1))
+			if (helper(str + 1, pattern, trailer, call))
 				return (1);
 	}
 	else
@@ -42,17 +42,15 @@ int helper(char const *str, char const *pattern, char const *trailer, int call)
 		if (*str != *pattern)
 		{
 			if (*pattern == '.')
-				if (helper(str + 1, pattern + 1, pattern, call + 1))
+				if (helper(str + 1, pattern + 1, pattern, call))
 					return (1);
 			if (*(pattern + 1) != '*')
 				return (0);
 		}
 		trailer = pattern;
 	}
-
-	return (helper(str + (*str == *pattern), pattern + 1, trailer, call + 1));
+	return (helper(str + (*str == *pattern), pattern + 1, trailer, call));
 }
-
 
 /**
  * regex_match - checks whether a given pattern matches a given string.
