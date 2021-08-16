@@ -1,4 +1,4 @@
-# Interview Prep: Pascal's Triangle
+# Interview Prep: Regular Expression Basic
 
 ## Description of Problem
 
