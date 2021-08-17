@@ -34,6 +34,8 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 	i = 0;
 	for (i = 0; (len - i) >= (words_len * nb_words); i++)
 	{
+		for (j = 0; j < nb_words; j++)
+			seen[j] = 0;
 		if (is_substring(s + i, words, nb_words, words_len, seen))
 		{
 			if (append(&result, n, i) == -1)
@@ -42,8 +44,6 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 				return (NULL);
 			}
 		}
-		for (j = 0; j < nb_words; j++) /* reset seen array */
-			seen[j] = 0;
 	}
 	free(seen);
 	return (result);
