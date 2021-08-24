@@ -35,7 +35,8 @@ def isWinner(x, nums):
             maria_score += 1
         x -= 1
 
+    if maria_score == ben_score:
+        return None
     if maria_score > ben_score:
         return "Maria"
-    else:
-        return "Ben"
+    return "Ben"
