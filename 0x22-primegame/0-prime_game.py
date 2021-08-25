@@ -40,16 +40,7 @@ def isWinner(x, nums):
         else:
             maria_score += 1
         x -= 1
-        print('Maria score: {}\nBen score: {}\n'.format(maria_score, ben_score))
 
     if maria_score > ben_score:
         return "Maria"
     return "Ben"
-
-
-nums = [0] * 100
-for i in range(100):
-    nums[i] = i * i
-
-print(f'nums: {nums}')
-print("Winner: {}".format(isWinner(100, nums)))
