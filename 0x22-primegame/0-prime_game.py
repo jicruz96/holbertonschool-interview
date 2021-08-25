@@ -1,6 +1,9 @@
 #!/usr/bin/python3
+""" See problem description in README.md """
+
 
 def get_primes_from_file_because_i_cheated():
+    """ gets primes """
     with open('primes.txt', 'r') as fp:
         primes = fp.readlines()
         fp.close()
@@ -8,22 +11,25 @@ def get_primes_from_file_because_i_cheated():
 
 
 def isWinner(x, nums):
-
+    """ finds winner """
     if x <= 0 or nums is None or len(nums) < x:
         return None
 
     primes = get_primes_from_file_because_i_cheated()
 
     def is_prime(num):
+        """returns if a number is prime below 10000 """
         return num in primes
 
     def number_of_primes_below_or_equal_to_num(num):
+        """ returns number of primes below or equal to num """
         num_primes = 0
         for i in range(2, num + 1):
             num_primes += is_prime(i)
         return num_primes
 
     def is_even(n):
+        """ returns if n is even """
         return n % 2 == 0
 
     maria_score = 0
